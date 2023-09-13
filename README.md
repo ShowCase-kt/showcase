@@ -1,2 +1,2 @@
 # showcase
-Kotlin DSL for making presentations.
+Kotlin DSL for making slideshows.
