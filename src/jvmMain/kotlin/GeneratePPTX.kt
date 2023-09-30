@@ -1,6 +1,7 @@
-import Widgets.Picture
-import Widgets.Shape
-import Widgets.Text
+import dev.rebok.showCase.*
+import dev.rebok.showCase.Widgets.Picture
+import dev.rebok.showCase.Widgets.Shape
+import dev.rebok.showCase.Widgets.Text
 import korlibs.image.bitmap.Bitmap
 import korlibs.image.format.PNG
 import korlibs.image.vector.SizedDrawable

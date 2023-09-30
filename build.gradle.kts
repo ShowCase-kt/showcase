@@ -1,11 +1,13 @@
+import org.jetbrains.kotlin.gradle.plugin.KotlinCompilationOutput
 import org.jetbrains.kotlin.gradle.plugin.extraProperties
 
 plugins {
     kotlin("multiplatform") version "1.9.0"
+    id("maven-publish")
 }
 
 group = "dev.rebok"
-version = "0.01"
+version = "0.2"
 
 repositories {
     mavenCentral()
@@ -40,8 +42,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("com.soywiz.korlibs.korio:korio:4.0.9")
-                implementation("com.soywiz.korlibs.korim:korim:4.0.9")
+                api("com.soywiz.korlibs.korio:korio:4.0.9")
+                api("com.soywiz.korlibs.korim:korim:4.0.9")
                 implementation("com.github.ajalt.colormath:colormath:3.3.1")
             }
         }
@@ -52,10 +54,9 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-                implementation("org.apache.poi:poi:5.2.3")
-                implementation("org.apache.poi:poi-ooxml:5.2.3")
-                implementation("org.apache.poi:poi-ooxml-full:5.2.3")
-
+                implementation("org.apache.poi:poi:5.2.4")
+                implementation("org.apache.poi:poi-ooxml:5.2.4")
+                implementation("org.apache.poi:poi-ooxml-full:5.2.4")
             }
         }
 

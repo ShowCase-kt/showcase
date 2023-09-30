@@ -1,7 +1,12 @@
-import Themes.Nova
-import Widgets.*
+import dev.rebok.showCase.Themes.Nova
+import dev.rebok.showCase.Color
+import dev.rebok.showCase.Image
+import dev.rebok.showCase.Widgets.Picture
+import dev.rebok.showCase.Widgets.SimpleCenteredText
+import dev.rebok.showCase.Widgets.Subtitle
+import dev.rebok.showCase.Widgets.Title
+import dev.rebok.showCase.presentation
 import korlibs.image.format.readBitmap
-import korlibs.image.format.readVectorImage
 import korlibs.io.file.std.applicationDataVfs
 import korlibs.io.file.std.resourcesVfs
 import kotlinx.coroutines.runBlocking
