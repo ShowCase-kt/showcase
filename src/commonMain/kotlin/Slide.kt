@@ -121,7 +121,7 @@ class SlideScope(
     fun image(
         image: Image,
         size: WidgetSize = WidgetSize(),
-        position: WidgetPositon = WidgetPositon()
+        position: WidgetPosition = WidgetPosition()
     ) {
         addToScene.invoke(
             Picture(

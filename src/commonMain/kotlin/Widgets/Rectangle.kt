@@ -3,13 +3,12 @@ package Widgets
 import Color
 import PresentationWidget
 import ShapeType
-import Theme
-import WidgetPositon
+import WidgetPosition
 import WidgetSize
 
 class Rectangle(
     val _size: WidgetSize = WidgetSize(),
-    val _position: WidgetPositon = WidgetPositon(),
+    val _position: WidgetPosition = WidgetPosition(),
     val color: Color
 ): PresentationWidget() {
     override val contents: List<PresentationWidget> = listOf(

@@ -1,30 +1,59 @@
-data class WidgetPositon(
-    val x: WidgetPositionElement = relative(0F),
-    val y: WidgetPositionElement = relative(0F)
+data class WidgetPosition(
+    val x: WidgetPositionElement = 0F.positionRelative,
+    val y: WidgetPositionElement = 0F.positionRelative
 )
 
-enum class WidgetPositionElementType {
-    Relative, Absolute, LocalAlign, GlobalAlign
+sealed class WidgetPositionElement() {
+    data class Absolute(val percentage: Float) : WidgetPositionElement()
+    data class Relative(val percentage: Float) : WidgetPositionElement()
+
+    data class LocalAlign(
+        val type: AlignX
+    ) : WidgetPositionElement() {
+        constructor(type: AlignY) : this(
+            type = when (type) {
+                AlignY.TOP -> AlignX.LEFT
+                AlignY.CENTER -> AlignX.CENTER
+                AlignY.BOTTOM -> AlignX.RIGHT
+            }
+        )
+    }
+
+    data class GlobalAlign(
+        val type: AlignX
+    ) : WidgetPositionElement() {
+        constructor(type: AlignY) : this(
+            type = when (type) {
+                AlignY.TOP -> AlignX.LEFT
+                AlignY.CENTER -> AlignX.CENTER
+                AlignY.BOTTOM -> AlignX.RIGHT
+            }
+        )
+    }
 }
 
-data class WidgetPositionElement(val Type: WidgetPositionElementType, val Value: Float)
-
-object AlignX {
-    val left: Float = -1F
-    val center: Float = 0F
-    val right: Float = 1F
+enum class AlignY(val value: Int) {
+    TOP(-1), CENTER(0), BOTTOM(1)
 }
 
-object AlignY {
-    val top: Float = -1F
-    val center: Float = 0F
-    val bottom: Float = 1F
+enum class AlignX(val value: Int) {
+    LEFT(-1), CENTER(0), RIGHT(1)
 }
 
-fun relative(value: Float) = WidgetPositionElement(WidgetPositionElementType.Relative,value)
+val AlignY.global: WidgetPositionElement
+    get() = WidgetPositionElement.GlobalAlign(this)
 
-fun absolute(value: Float) = WidgetPositionElement(WidgetPositionElementType.Absolute,value)
+val AlignX.global: WidgetPositionElement
+    get() = WidgetPositionElement.GlobalAlign(this)
 
-fun localAlign(value: Float) = WidgetPositionElement(WidgetPositionElementType.LocalAlign,value)
+val AlignY.local: WidgetPositionElement
+    get() = WidgetPositionElement.LocalAlign(this)
 
-fun globalAlign(value: Float) = WidgetPositionElement(WidgetPositionElementType.GlobalAlign, value)
+val AlignX.local: WidgetPositionElement
+    get() = WidgetPositionElement.LocalAlign(this)
+
+val Float.positionAbsolute: WidgetPositionElement
+    get() = WidgetPositionElement.Absolute(this)
+
+val Float.positionRelative: WidgetPositionElement
+    get() = WidgetPositionElement.Absolute(this)

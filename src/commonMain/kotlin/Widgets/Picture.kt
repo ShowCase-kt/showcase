@@ -3,14 +3,14 @@ package Widgets
 import Image
 import PictureScalingEffect
 import PictureStyle
-import WidgetPositon
 import PresentationWidget
 import Theme
+import WidgetPosition
 import WidgetSize
 
 class Picture(
     Size: WidgetSize = WidgetSize(),
-    Position: WidgetPositon = WidgetPositon(),
+    Position: WidgetPosition = WidgetPosition(),
     _theme: Theme = Theme(),
     val image: Image,
     val style: PictureStyle? = null,

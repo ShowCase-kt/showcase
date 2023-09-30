@@ -2,7 +2,7 @@ package Widgets
 
 import HorizontalTextAlign
 import Paragraph
-import WidgetPositon
+import WidgetPosition
 import PresentationWidget
 import Run
 import TextData
@@ -15,7 +15,7 @@ import parseEmoji
 class Subtitle(
     val text: String,
     Size: WidgetSize = WidgetSize(),
-    Position: WidgetPositon = WidgetPositon(),
+    Position: WidgetPosition = WidgetPosition(),
     _theme: Theme = Theme()
 ) : PresentationWidget(Size, Position, _theme) {
     override val contents: List<PresentationWidget>

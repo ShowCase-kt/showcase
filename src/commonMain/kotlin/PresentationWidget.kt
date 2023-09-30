@@ -1,6 +1,6 @@
 abstract class PresentationWidget(
     var size: WidgetSize = WidgetSize(),
-    var position: WidgetPositon = WidgetPositon(),
+    var position: WidgetPosition = WidgetPosition(),
     var theme: Theme = Theme()
 ) {
     abstract val contents: List<PresentationWidget>?

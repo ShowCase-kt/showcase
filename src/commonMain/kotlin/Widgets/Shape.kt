@@ -3,13 +3,12 @@ package Widgets
 import Color
 import PresentationWidget
 import ShapeType
-import Theme
-import WidgetPositon
+import WidgetPosition
 import WidgetSize
 
 class Shape(
     val _size: WidgetSize,
-    val _position: WidgetPositon,
+    val _position: WidgetPosition,
     val shapeType: ShapeType,
     val color: Color
 ): PresentationWidget(_size,_position) {

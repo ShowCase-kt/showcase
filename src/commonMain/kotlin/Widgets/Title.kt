@@ -2,7 +2,7 @@ package Widgets
 
 import HorizontalTextAlign
 import Paragraph
-import WidgetPositon
+import WidgetPosition
 import PresentationWidget
 import Run
 import TextData
@@ -16,7 +16,7 @@ class Title(
     val text: String,
     val isBold: Boolean = true,
     Size: WidgetSize = WidgetSize(),
-    Position: WidgetPositon = WidgetPositon(),
+    Position: WidgetPosition = WidgetPosition(),
     Theme: Theme = Theme()
 ) : PresentationWidget(Size, Position, Theme) {
     override val contents: List<PresentationWidget>

@@ -1,11 +1,11 @@
 package Widgets
 
-import WidgetPositon
+import WidgetPosition
 import PresentationWidget
 import Theme
 import WidgetSize
 import WidgetOverride
-import relative
+import positionRelative
 
 class TitleLayout(
     val title: PresentationWidget,
@@ -20,12 +20,12 @@ class TitleLayout(
                 title.overriden(
                     WidgetOverride(
                         size = WidgetSize(90F, 40F),
-                        position = if (subtitle != null) WidgetPositon(
-                            relative(5F),
-                            relative(20F)
-                        ) else WidgetPositon(
-                            relative(5F),
-                            relative(30F)
+                        position = if (subtitle != null) WidgetPosition(
+                            x = 5F.positionRelative,
+                            y = 20F.positionRelative
+                        ) else WidgetPosition(
+                            x = 5F.positionRelative,
+                            y = 30F.positionRelative
                         ),
                         theme = _theme
                     )
@@ -37,9 +37,9 @@ class TitleLayout(
                     subtitle.overriden(
                         WidgetOverride(
                             size = WidgetSize(90F, 20F),
-                            position = WidgetPositon(
-                                relative(5F),
-                                relative(60F)
+                            position = WidgetPosition(
+                                x = 5F.positionRelative,
+                                y = 60F.positionRelative
                             ),
                             theme = _theme
                         )

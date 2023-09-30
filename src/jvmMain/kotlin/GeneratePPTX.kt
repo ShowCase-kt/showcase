@@ -1,4 +1,3 @@
-import Widgets.Backdrop
 import Widgets.Picture
 import Widgets.Shape
 import Widgets.Text
@@ -55,12 +54,13 @@ fun Presentation.generatePPTX() {
                 * - SLOW = 0.75s
                 * */
 
-                slide.xmlObject.transition.spd = when (slideRaw.slideChangeTransition.durationMilis.roundWithLimitedPossibilities(250,500,750)) {
-                    250L -> STTransitionSpeed.FAST
-                    500L -> STTransitionSpeed.MED
-                    750L -> STTransitionSpeed.SLOW
-                    else -> STTransitionSpeed.MED
-                }
+                slide.xmlObject.transition.spd =
+                    when (slideRaw.slideChangeTransition.durationMilis.roundWithLimitedPossibilities(250, 500, 750)) {
+                        250L -> STTransitionSpeed.FAST
+                        500L -> STTransitionSpeed.MED
+                        750L -> STTransitionSpeed.SLOW
+                        else -> STTransitionSpeed.MED
+                    }
             }
         }
 
@@ -205,118 +205,95 @@ fun parse(it: List<PresentationWidget>, add: (Widget: PresentationWidget) -> Uni
     }
 }
 
-fun WidgetPositon.toRectangle2d(presentationSize: Dimension, widgetSize: WidgetSize, local: Rectangle2D): Rectangle2D {
-    val x: Int = when (this.x.Type) {
-        WidgetPositionElementType.Relative -> {
-            (((local.width / 100) * this.x.Value) + local.x).toInt()
-        }
+fun WidgetPosition.toRectangle2d(presentationSize: Dimension, widgetSize: WidgetSize, local: Rectangle2D): Rectangle2D {
+    val x: Float = this.x.toPresentationPosition(
+        presentationSize = presentationSize,
+        widgetSize = widgetSize,
+        isXDimension = true
+    )
 
-        WidgetPositionElementType.Absolute -> {
-            ((presentationSize.width / 100) * this.x.Value).toInt()
-        }
-
-        WidgetPositionElementType.LocalAlign -> {
-            when (this.x.Value) {
-                -1F -> {
-                    local.x.toInt()
-                }
-
-                0F -> {
-                    ((local.x + (local.width / 2)) - (((local.x / 100) * widgetSize.width) / 2)).toInt()
-                }
-
-                1F -> {
-                    ((local.x + local.width) - ((local.width / 100) * widgetSize.width)).toInt()
-                }
-
-                else -> {
-                    0
-                }
-            }
-        }
-
-        WidgetPositionElementType.GlobalAlign -> {
-            when (this.x.Value) {
-                -1F -> {
-                    0
-                }
-
-                0F -> {
-                    (presentationSize.width / 2) - ((((presentationSize.width.toDouble() / 100) * widgetSize.width) / 2).toInt())
-                }
-
-                1F -> {
-                    (presentationSize.width - ((presentationSize.width / 100) * widgetSize.width)).toInt()
-                }
-
-                else -> {
-                    0
-                }
-            }
-        }
-    }
-
-    val y: Int = when (this.y.Type) {
-        WidgetPositionElementType.Relative -> {
-            (((local.height / 100) * this.y.Value) + local.y).toInt()
-        }
-
-        WidgetPositionElementType.Absolute -> {
-            ((presentationSize.height / 100) * this.y.Value).toInt()
-        }
-
-        WidgetPositionElementType.LocalAlign -> {
-            when (this.y.Value) {
-                -1F -> {
-                    local.y.toInt()
-                }
-
-                0F -> {
-                    ((local.y + (local.height / 2)) - (((local.y / 100) * widgetSize.height) / 2)).toInt()
-                }
-
-                1F -> {
-                    ((local.y + local.height) - ((local.height / 100) * widgetSize.height)).toInt()
-                }
-
-                else -> {
-                    0
-                }
-            }
-        }
-
-        WidgetPositionElementType.GlobalAlign -> {
-            when (this.y.Value) {
-                -1F -> {
-                    0
-                }
-
-                0F -> {
-                    (presentationSize.height / 2) - ((((presentationSize.height.toDouble() / 100) * widgetSize.height) / 2).toInt())
-                }
-
-                1F -> {
-                    (presentationSize.height - ((presentationSize.height / 100) * widgetSize.height)).toInt()
-                }
-
-                else -> {
-                    0
-                }
-            }
-        }
-    }
+    val y: Float = this.y.toPresentationPosition(
+        presentationSize = presentationSize,
+        widgetSize = widgetSize,
+        isXDimension = false
+    )
 
 
 
     return Rectangle2D.Float(
-        x.toFloat(), y.toFloat(),
-        ((presentationSize.width.toFloat() / 100) * widgetSize.width).toFloat(),
-        ((presentationSize.height.toFloat() / 100) * widgetSize.height).toFloat()
+        x, y,
+        ((presentationSize.width.toFloat() / 100) * widgetSize.width),
+        ((presentationSize.height.toFloat() / 100) * widgetSize.height)
     )
 }
 
-inline fun <reified A, B> MutableMap<A, B>.withAdded(key: A, value: B): MutableMap<A, B> {
-    var result = this as MutableMap<A, B>
+fun WidgetPositionElement.toPresentationPosition(
+    presentationSize: Dimension,
+    widgetSize: WidgetSize,
+    isXDimension: Boolean
+): Float {
+    if (this is WidgetPositionElement.Absolute || this is WidgetPositionElement.Relative) {
+        val point = when (this) {
+            is WidgetPositionElement.Absolute -> this.percentage
+            is WidgetPositionElement.Relative -> this.percentage
+            //It's not possible for it to happen BTW
+            else -> throw Exception("OOPS! That shouldn't happen.")
+        }
+
+
+        // TODO: Add relative positioning support
+
+        return (presentationSize.let {
+            if (isXDimension) presentationSize.width
+            else it.height
+        } / 100F) * point
+
+    } else if (this is WidgetPositionElement.LocalAlign || this is WidgetPositionElement.GlobalAlign) {
+        val alignValue = if (this is WidgetPositionElement.LocalAlign) {
+            this.type.value
+        } else if (this is WidgetPositionElement.GlobalAlign) {
+            this.type.value
+        } else {
+            throw Exception("That can't happen neither")
+        }
+
+        println(widgetSize.let {
+            if (isXDimension) it.width
+            else it.height
+        }.toPointInPresentation(presentationSize, isXDimension))
+
+        return when (alignValue) {
+            -1 -> 0F
+            0 -> (presentationSize.let {
+                if (isXDimension) it.width
+                else it.height
+            } - widgetSize.let {
+                if (isXDimension) it.width
+                else it.height
+            }.toPointInPresentation(presentationSize, isXDimension)) / 2F
+
+            1 -> presentationSize.let {
+                if (isXDimension) it.width
+                else it.height
+            } - widgetSize.let {
+                if (isXDimension) it.width
+                else it.height
+            }
+
+            else -> throw Exception("That cannot happen.")
+        }
+    }
+
+    return 0F
+}
+
+fun Float.toPointInPresentation(presentationSize: Dimension, useX: Boolean): Float = (presentationSize.let {
+    if (useX) it.width
+    else it.height
+} / 100F) * this
+
+fun <K, V> MutableMap<K, V>.withAdded(key: K, value: V): MutableMap<K, V> {
+    val result = this
     result[key] = value
     return result
 }
@@ -324,12 +301,12 @@ inline fun <reified A, B> MutableMap<A, B>.withAdded(key: A, value: B): MutableM
 // the limit is the maximum double can hold
 fun Long.roundWithLimitedPossibilities(vararg possibilities: Long): Long {
     // store scores, with corresponding possibility
-    var result: MutableMap<Double, Long> = mutableMapOf()
+    val result: MutableMap<Double, Long> = mutableMapOf()
     for (a in possibilities) {
         if (this > a) {
             result[(this - a).toDouble()] = a
         } else {
-            result[(a - this ).toDouble()] = a
+            result[(a - this).toDouble()] = a
         }
     }
 

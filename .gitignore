@@ -27,3 +27,4 @@ replay_pid*
 /.idea/
 /.gradle/
 /kotlin-js-store/
+/out/

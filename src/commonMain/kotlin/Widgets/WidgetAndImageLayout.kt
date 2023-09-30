@@ -4,12 +4,10 @@ import AlignY
 import PresentationWidget
 import Theme
 import WidgetOverride
-import WidgetPositon
+import WidgetPosition
 import WidgetSize
-import absolute
-import globalAlign
-import localAlign
-import relative
+import global
+import positionRelative
 
 class WidgetAndImageLayout(
     private val firstPane: PresentationWidget,
@@ -25,9 +23,9 @@ class WidgetAndImageLayout(
                 firstPane.overriden(
                     WidgetOverride(
                         size = WidgetSize(42.5F,90F),
-                        position = WidgetPositon(
-                            relative(5F),
-                            globalAlign(AlignY.center)
+                        position = WidgetPosition(
+                            5F.positionRelative,
+                            AlignY.CENTER.global
                         ),
                         theme = theme
                     )
@@ -36,9 +34,9 @@ class WidgetAndImageLayout(
                 image.overriden(
                     WidgetOverride(
                         size = WidgetSize(42.5F,50F),
-                        position = WidgetPositon(
-                            relative(52.5F),
-                            globalAlign(AlignY.center)
+                        position = WidgetPosition(
+                            52.5F.positionRelative,
+                            AlignY.CENTER.global
                         ),
                         theme = theme
                     )

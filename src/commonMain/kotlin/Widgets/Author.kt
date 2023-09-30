@@ -1,16 +1,13 @@
 package Widgets
 
-import AlignX
-import AlignY
-import Color
 import HorizontalTextAlign
 import Paragraph
 import PresentationWidget
 import Run
 import TextData
 import Theme
-import WidgetPositon
-import globalAlign
+import VerticalTextAlign
+import WidgetSize
 
 class Author(
     val name: String,

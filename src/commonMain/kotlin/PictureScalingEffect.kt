@@ -1,8 +1,8 @@
 sealed class PictureScalingEffect {
     class FitToNotScale(
-        alignX: Float = AlignX.center,
-        alignY: Float = AlignY.center
+        alignX: Float = AlignX.CENTER.value.toFloat(),
+        alignY: Float = AlignY.CENTER.value.toFloat()
     ): PictureScalingEffect()
 
-    object Fill: PictureScalingEffect()
+    data object Fill: PictureScalingEffect()
 }
