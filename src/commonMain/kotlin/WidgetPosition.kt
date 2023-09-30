@@ -1,6 +1,6 @@
 data class WidgetPosition(
-    val x: WidgetPositionElement = 0F.positionRelative,
-    val y: WidgetPositionElement = 0F.positionRelative
+    val x: WidgetPositionElement = AlignX.CENTER.local,
+    val y: WidgetPositionElement = AlignY.CENTER.local
 )
 
 sealed class WidgetPositionElement() {

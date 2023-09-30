@@ -2,6 +2,7 @@ import Themes.Nova
 import Widgets.*
 import korlibs.image.format.readBitmap
 import korlibs.image.format.readVectorImage
+import korlibs.io.file.std.applicationDataVfs
 import korlibs.io.file.std.resourcesVfs
 import kotlinx.coroutines.runBlocking
 import kotlin.test.Test
@@ -41,6 +42,6 @@ class PresentationTest {
                     subtitle = Subtitle("Bye :bye:")
                 )
             }
-        }.generatePPTX()
+        }.generatePPTXAndSave(applicationDataVfs["example.pptx"])
     }
 }

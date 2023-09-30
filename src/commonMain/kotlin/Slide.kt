@@ -150,4 +150,8 @@ class SlideScope(
             )
         )
     }
+
+    operator fun PresentationWidget.unaryPlus() {
+        addToScene.invoke(this)
+    }
 }

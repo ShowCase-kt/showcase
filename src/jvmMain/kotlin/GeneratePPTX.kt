@@ -13,13 +13,13 @@ import org.openxmlformats.schemas.presentationml.x2006.main.STTransitionSideDire
 import org.openxmlformats.schemas.presentationml.x2006.main.STTransitionSpeed
 import java.awt.Dimension
 import java.awt.geom.Rectangle2D
-import java.io.FileOutputStream
+import java.io.ByteArrayOutputStream
 import org.apache.poi.sl.usermodel.ShapeType as poiShapeType
 import java.awt.Color as awtColor
 
-fun Presentation.generatePPTX() {
+fun Presentation.generatePPTX(): ByteArray {
     val result = XMLSlideShow()
-    val fileOut = FileOutputStream("presentation.pptx")
+    val fileOut = ByteArrayOutputStream()
     val presentationSize = result.pageSize
 
     this.slides.forEachIndexed { index, slideRaw ->
@@ -79,7 +79,7 @@ fun Presentation.generatePPTX() {
             add = { widget ->
                 if (widget is Text) {
                     val text = slide.createTextBox()
-                    if (widget.size.width != -1.0F) {
+                    if (widget.size.width.value != -1.0F) {
                         text.anchor = widget.position.toRectangle2d(
                             presentationSize = presentationSize,
                             widgetSize = widget.size,
@@ -159,7 +159,7 @@ fun Presentation.generatePPTX() {
                     )
 
                 } else if (widget is Shape) {
-                    var shape = slide.createAutoShape()
+                    val shape = slide.createAutoShape()
 
                     shape.fillColor = awtColor(
                         widget.color.red,
@@ -188,6 +188,7 @@ fun Presentation.generatePPTX() {
 
     result.write(fileOut)
     fileOut.close()
+    return fileOut.toByteArray()
 }
 
 fun parse(it: List<PresentationWidget>, add: (Widget: PresentationWidget) -> Unit) {
@@ -222,8 +223,8 @@ fun WidgetPosition.toRectangle2d(presentationSize: Dimension, widgetSize: Widget
 
     return Rectangle2D.Float(
         x, y,
-        ((presentationSize.width.toFloat() / 100) * widgetSize.width),
-        ((presentationSize.height.toFloat() / 100) * widgetSize.height)
+        widgetSize.width.toPointInPresentation(presentationSize, true),
+        widgetSize.height.toPointInPresentation(presentationSize, false)
     )
 }
 
@@ -257,11 +258,6 @@ fun WidgetPositionElement.toPresentationPosition(
             throw Exception("That can't happen neither")
         }
 
-        println(widgetSize.let {
-            if (isXDimension) it.width
-            else it.height
-        }.toPointInPresentation(presentationSize, isXDimension))
-
         return when (alignValue) {
             -1 -> 0F
             0 -> (presentationSize.let {
@@ -278,7 +274,7 @@ fun WidgetPositionElement.toPresentationPosition(
             } - widgetSize.let {
                 if (isXDimension) it.width
                 else it.height
-            }
+            }.toPointInPresentation(presentationSize, isXDimension)
 
             else -> throw Exception("That cannot happen.")
         }
@@ -287,10 +283,16 @@ fun WidgetPositionElement.toPresentationPosition(
     return 0F
 }
 
-fun Float.toPointInPresentation(presentationSize: Dimension, useX: Boolean): Float = (presentationSize.let {
-    if (useX) it.width
-    else it.height
-} / 100F) * this
+fun Percentage.toPointInPresentation(presentationSize: Dimension, useX: Boolean): Float = (presentationSize.let {
+    when (this.orientation) {
+        Orientation.DEFAULT -> if (useX) it.width
+        else it.height
+
+        Orientation.VERTICAL -> it.height
+
+        Orientation.HORIZONTAL -> it.width
+    }
+} / 100) * this.value
 
 fun <K, V> MutableMap<K, V>.withAdded(key: K, value: V): MutableMap<K, V> {
     val result = this
