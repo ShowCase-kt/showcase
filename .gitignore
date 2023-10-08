@@ -28,3 +28,9 @@ replay_pid*
 /.gradle/
 /kotlin-js-store/
 /out/
+/Core/build/
+/Exports/pptx/build/
+/Exports/build/
+/Themes/nova/build/
+/Themes/build/
+/Gradle/build/

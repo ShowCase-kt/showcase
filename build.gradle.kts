@@ -1,69 +1,44 @@
-import org.jetbrains.kotlin.gradle.plugin.KotlinCompilationOutput
-import org.jetbrains.kotlin.gradle.plugin.extraProperties
-
 plugins {
-    kotlin("multiplatform") version "1.9.0"
-    id("maven-publish")
+    kotlin("multiplatform")
 }
 
-group = "dev.rebok"
-version = "0.2"
+allprojects {
+    group = extra["project.group"].toString()
+    version = extra["project.version"].toString()
 
-repositories {
-    mavenCentral()
+    if (project.name != "Gradle") {
+        apply(
+            plugin = "maven-publish"
+        )
+    }
 }
 
 kotlin {
-    jvm {
-        jvmToolchain(8)
-        withJava()
-        testRuns.named("test") {
-            executionTask.configure {
-                useJUnitPlatform()
-            }
-        }
-    }
-    js {
-        nodejs()
-    }
-    val hostOs = System.getProperty("os.name")
-    val isArm64 = System.getProperty("os.arch") == "aarch64"
-    val isMingwX64 = hostOs.startsWith("Windows")
-    val nativeTarget = when {
-        hostOs == "Mac OS X" && isArm64 -> macosArm64("native")
-        hostOs == "Mac OS X" && !isArm64 -> macosX64("native")
-        hostOs == "Linux" && isArm64 -> linuxArm64("native")
-        hostOs == "Linux" && !isArm64 -> linuxX64("native")
-        isMingwX64 -> mingwX64("native")
-        else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
-    }
-
+    jvm()
+    linuxX64()
+    macosX64()
+    macosArm64()
+    mingwX64()
+    js()
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("com.soywiz.korlibs.korio:korio:4.0.9")
-                api("com.soywiz.korlibs.korim:korim:4.0.9")
-                implementation("com.github.ajalt.colormath:colormath:3.3.1")
+                api(project("Core"))
+                api(project("Themes"))
+                api(project("Exports"))
             }
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
-        }
-        val jvmMain by getting {
-            dependencies {
-                implementation("org.apache.poi:poi:5.2.4")
-                implementation("org.apache.poi:poi-ooxml:5.2.4")
-                implementation("org.apache.poi:poi-ooxml-full:5.2.4")
-            }
-        }
-
-        val jvmTest by getting
-        val jsMain by getting
-        val jsTest by getting
-        val nativeMain by getting
-        val nativeTest by getting
     }
+}
+
+task("publish-all") {
+    val taskName = "publishToMavenLocal"
+    dependsOn(taskName)
+    dependsOn(":Core:${taskName}")
+    dependsOn(":Exports:${taskName}")
+    dependsOn(":Exports:pptx:${taskName}")
+    dependsOn(":Themes:${taskName}")
+    dependsOn(":Themes:nova:${taskName}")
+    dependsOn(":Gradle:${taskName}")
 }

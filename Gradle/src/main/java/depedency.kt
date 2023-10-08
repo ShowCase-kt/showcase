@@ -1,0 +1,1 @@
+internal fun dependency(name: String): String = "${InternalConfig.group}:${name}:${InternalConfig.version}"
