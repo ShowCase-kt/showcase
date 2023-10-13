@@ -1,8 +1,10 @@
 include(":Core")
 
-include(":Exports")
+include(":Exporters")
 
-include(":Exports:pptx")
+include(":Exporters:pptx")
+
+include(":Exporters:pptx-experimental")
 
 include(":Gradle")
 

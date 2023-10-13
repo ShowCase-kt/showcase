@@ -34,3 +34,6 @@ replay_pid*
 /Themes/nova/build/
 /Themes/build/
 /Gradle/build/
+/Exporters/build/
+/Exporters/pptx/build/
+/Exporters/pptx-experimental/build/

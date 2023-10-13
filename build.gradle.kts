@@ -26,7 +26,7 @@ kotlin {
             dependencies {
                 api(project("Core"))
                 api(project("Themes"))
-                api(project("Exports"))
+                api(project("Exporters"))
             }
         }
     }
@@ -36,8 +36,9 @@ task("publish-all") {
     val taskName = "publishToMavenLocal"
     dependsOn(taskName)
     dependsOn(":Core:${taskName}")
-    dependsOn(":Exports:${taskName}")
-    dependsOn(":Exports:pptx:${taskName}")
+    dependsOn(":Exporters:${taskName}")
+    dependsOn(":Exporters:pptx-experimental:${taskName}")
+    dependsOn(":Exporters:pptx:${taskName}")
     dependsOn(":Themes:${taskName}")
     dependsOn(":Themes:nova:${taskName}")
     dependsOn(":Gradle:${taskName}")

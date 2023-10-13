@@ -18,8 +18,9 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("com.soywiz.korlibs.korio:korio:4.0.9")
-                api("com.soywiz.korlibs.korim:korim:4.0.9")
+                api("com.soywiz.korlibs.korio:korio:4.0.10")
+                api("com.soywiz.korlibs.korim:korim:4.0.10")
+                implementation("com.soywiz.korlibs.korim:korim:4.0.10")
                 implementation("com.github.ajalt.colormath:colormath:3.3.2")
             }
         }
