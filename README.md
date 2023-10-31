@@ -5,7 +5,6 @@ Kotlin DSL for making slideshows.
 
 # BUT!
 
-## This project uses apache poi which you need to include their licensing stuff, for more info go [here](https://poi.apache.org/legal.html).
-
-## If jvm sourceset is not used then poi is not used so you don't need to do their licensing stuff.
+## This project uses other libraries, that you need to do licensing stuff for:
+more in LICENSES.md file
 
