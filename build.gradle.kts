@@ -11,6 +11,10 @@ allprojects {
             plugin = "maven-publish"
         )
     }
+
+    repositories {
+        mavenCentral()
+    }
 }
 
 kotlin {

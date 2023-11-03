@@ -110,7 +110,10 @@ class SlideScope(
     ) {
         addToScene(
             CenteredText(
-                text = text(text),
+                text = text(
+                    textTheme = theme.textTheme,
+                    body = text
+                ),
                 defaultFontSize = defaultFontSize,
                 size = WidgetSize.max,
                 position = WidgetPosition(AlignX.CENTER.local, AlignY.CENTER.local),
@@ -171,8 +174,10 @@ class SlideScope(
     ) {
         addToScene.invoke(
             Text(
-                text = text(text)
-                    .normalizeFontSize(defaultFontSize)
+                text = text(
+                    textTheme = theme.textTheme,
+                    body = text
+                ).normalizeFontSize(defaultFontSize)
                     .normalizeColors(theme),
                 size = WidgetSize.max,
                 position = WidgetPosition(AlignX.CENTER.local, AlignY.CENTER.local),
