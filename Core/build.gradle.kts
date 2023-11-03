@@ -20,20 +20,10 @@ kotlin {
             dependencies {
                 api("com.soywiz.korlibs.korio:korio:4.0.10")
                 api("com.soywiz.korlibs.korim:korim:4.0.10")
-                implementation("com.soywiz.korlibs.korim:korim:4.0.10")
+                implementation("com.soywiz.korlibs.krypto:krypto:4.0.10")
                 implementation("com.github.ajalt.colormath:colormath:3.3.2")
             }
         }
-        /*val jvmMain by getting {
-            dependencies {
-                implementation("org.apache.poi:poi:5.2.4")
-                implementation("org.apache.poi:poi-ooxml:5.2.4")
-                implementation("org.apache.poi:poi-ooxml-full:5.2.4")
-                implementation("com.soywiz.korlibs.krypto:krypto:4.0.10")
-            }
-        }*/
-        /*val jsMain by getting
-        val nativeMain by getting*/
     }
 
     publishing {

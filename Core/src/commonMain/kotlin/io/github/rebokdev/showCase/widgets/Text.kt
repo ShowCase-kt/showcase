@@ -7,9 +7,9 @@ import io.github.rebokdev.showCase.WidgetSize
 
 class Text(
     val text: TextData,
-    private val Size: WidgetSize = WidgetSize(),
-    private val Position: WidgetPosition = WidgetPosition(),
-    val resizeToFit: Boolean = false
-): PresentationWidget(Size, Position) {
+    size: WidgetSize = WidgetSize(),
+    position: WidgetPosition = WidgetPosition(),
+    val resizeToFit: Boolean = true
+): PresentationWidget(size, position) {
     override val contents: List<PresentationWidget>? = null
 }

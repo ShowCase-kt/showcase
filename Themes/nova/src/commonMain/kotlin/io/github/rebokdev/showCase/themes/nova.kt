@@ -20,7 +20,7 @@ fun nova(
     val palette = object {
         var titleColor = colorAsHSL.lighten(.1F).toShowCaseColor()
         var subtitleColor = colorAsHSL.toShowCaseColor()
-        var authorColor = colorAsHSL.lighten(.3F).toShowCaseColor()
+        var authorColor = colorAsHSL.lighten(.15F).toShowCaseColor()
         var slideNumberColor = colorAsHSL.lighten(.2F).toShowCaseColor()
     }
 
@@ -43,7 +43,7 @@ fun nova(
                     widgetsOnTheBottom = listOf(
                         SlideNumber(
                             number = slideIndex,
-                            _theme = Theme(
+                            theme = Theme(
                                 slideNumberColor = palette.slideNumberColor
                             )
                         )
@@ -51,7 +51,7 @@ fun nova(
                         if (this.slideIndex == 0 && author != null) {
                             it + Author(
                                 name = author,
-                                _theme = Theme(
+                                theme = Theme(
                                     authorColor = palette.authorColor
                                 )
                             )

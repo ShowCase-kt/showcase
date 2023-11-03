@@ -5,7 +5,7 @@ abstract class PresentationWidget(
     var position: WidgetPosition = WidgetPosition(),
     var theme: Theme = Theme()
 ) {
-    abstract val contents: List<PresentationWidget>?
+    open val contents: List<PresentationWidget>? = null
 
     fun overriden(override: WidgetOverride): PresentationWidget {
         val toReturn = this

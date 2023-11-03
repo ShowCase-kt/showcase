@@ -5,5 +5,5 @@ data class Run(
     val color: Color = Color.default,
     val bold: Boolean = false,
     val italic: Boolean = false,
-    val fontSize: Double = 15.0
+    val fontSize: Double = -1.0
 )

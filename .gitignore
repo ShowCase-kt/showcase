@@ -37,3 +37,4 @@ replay_pid*
 /Exporters/build/
 /Exporters/pptx/build/
 /Exporters/pptx-experimental/build/
+/qodana.yaml

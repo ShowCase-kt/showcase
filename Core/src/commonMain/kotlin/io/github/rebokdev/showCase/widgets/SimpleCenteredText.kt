@@ -11,10 +11,10 @@ class SimpleCenteredText(
     private val bold: Boolean = false,
     private val italic: Boolean = false,
     private val fontSize: Double = 45.0,
-    private val _theme: Theme = Theme()
+    theme: Theme = Theme()
 ) : PresentationWidget(
     size = WidgetSize.max,
-    theme = _theme
+    theme = theme
 ) {
     override val contents: List<PresentationWidget>
         get() {
@@ -33,8 +33,8 @@ class SimpleCenteredText(
                             )
                         )
                     ),
-                    Size = size,
-                    Position = position
+                    size = size,
+                    position = position
                 )
             )
         }

@@ -54,7 +54,7 @@ class SlideScope(
         addToScene.invoke(
             SlideNumber(
                 number = slideNumber,
-                _theme = theme
+                theme = theme
             )
         )
     }
@@ -80,7 +80,7 @@ class SlideScope(
             Title(
                 text = text,
                 isBold = isBold,
-                Theme = theme
+                theme = theme
             )
         )
     }
@@ -99,7 +99,22 @@ class SlideScope(
                 bold = bold,
                 italic = italic,
                 fontSize = fontSize,
-                _theme = theme
+                theme = theme
+            )
+        )
+    }
+
+    fun centeredText(
+        defaultFontSize: Double = 45.0,
+        text: MainTextScope.() -> Unit
+    ) {
+        addToScene(
+            CenteredText(
+                text = text(text),
+                defaultFontSize = defaultFontSize,
+                size = WidgetSize.max,
+                position = WidgetPosition(AlignX.CENTER.local, AlignY.CENTER.local),
+                theme = theme
             )
         )
     }
@@ -112,7 +127,7 @@ class SlideScope(
             TitleLayout(
                 title = title,
                 subtitle = subtitle,
-                _theme = theme
+                theme = theme
             )
         )
     }
@@ -124,8 +139,8 @@ class SlideScope(
     ) {
         addToScene.invoke(
             Picture(
-                Size = size,
-                Position = position,
+                size = size,
+                position = position,
                 image = image
             )
         )
@@ -135,7 +150,7 @@ class SlideScope(
         addToScene.invoke(
             Author(
                 name = name,
-                _theme = theme
+                theme = theme
             )
         )
     }
@@ -146,6 +161,22 @@ class SlideScope(
         addToScene.invoke(
             Subtitle(
                 text = text
+            )
+        )
+    }
+
+    fun text(
+        defaultFontSize: Double = 45.0,
+        text: MainTextScope.() -> Unit
+    ) {
+        addToScene.invoke(
+            Text(
+                text = text(text)
+                    .normalizeFontSize(defaultFontSize)
+                    .normalizeColors(theme),
+                size = WidgetSize.max,
+                position = WidgetPosition(AlignX.CENTER.local, AlignY.CENTER.local),
+                resizeToFit = true
             )
         )
     }

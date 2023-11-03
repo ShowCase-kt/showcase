@@ -14,10 +14,10 @@ import io.github.rebokdev.showCase.parseEmoji
 
 class Subtitle(
     val text: String,
-    Size: WidgetSize = WidgetSize(),
-    Position: WidgetPosition = WidgetPosition(),
-    _theme: Theme = Theme()
-) : PresentationWidget(Size, Position, _theme) {
+    size: WidgetSize = WidgetSize(),
+    position: WidgetPosition = WidgetPosition(),
+    theme: Theme = Theme()
+) : PresentationWidget(size, position, theme) {
     override val contents: List<PresentationWidget>
         get() {
             return listOf(
@@ -33,7 +33,7 @@ class Subtitle(
                             )
                         )
                     ),
-                    Size = WidgetSize.max
+                    size = WidgetSize.max
                 ).overriden(
                     WidgetOverride(
                         size = size,

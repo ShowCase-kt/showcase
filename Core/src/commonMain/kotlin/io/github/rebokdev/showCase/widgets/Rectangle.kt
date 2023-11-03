@@ -7,14 +7,14 @@ import io.github.rebokdev.showCase.WidgetPosition
 import io.github.rebokdev.showCase.WidgetSize
 
 class Rectangle(
-    val _size: WidgetSize = WidgetSize(),
-    val _position: WidgetPosition = WidgetPosition(),
+    size: WidgetSize = WidgetSize(),
+    position: WidgetPosition = WidgetPosition(),
     val color: Color
 ): PresentationWidget() {
     override val contents: List<PresentationWidget> = listOf(
         Shape(
-            _size = _size,
-            _position = _position,
+            size = size,
+            position = position,
             shapeType = ShapeType.rectangle(),
             color = color
         )

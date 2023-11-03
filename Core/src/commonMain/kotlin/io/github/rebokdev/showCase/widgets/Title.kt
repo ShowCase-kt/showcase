@@ -15,10 +15,10 @@ import io.github.rebokdev.showCase.parseEmoji
 class Title(
     val text: String,
     val isBold: Boolean = true,
-    Size: WidgetSize = WidgetSize(),
-    Position: WidgetPosition = WidgetPosition(),
-    Theme: Theme = Theme()
-) : PresentationWidget(Size, Position, Theme) {
+    size: WidgetSize = WidgetSize(),
+    position: WidgetPosition = WidgetPosition(),
+    theme: Theme = Theme()
+) : PresentationWidget(size, position, theme) {
     override val contents: List<PresentationWidget>
         get() {
             return listOf(
@@ -35,7 +35,7 @@ class Title(
                             )
                         )
                     ),
-                    Size = WidgetSize.max
+                    size = WidgetSize.max
                 ).overriden(
                     WidgetOverride(
                         size = size,

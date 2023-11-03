@@ -10,9 +10,10 @@ import io.github.rebokdev.showCase.positionRelative
 class TitleLayout(
     val title: PresentationWidget,
     val subtitle: PresentationWidget? = null,
-    val _theme: Theme = Theme()
+    theme: Theme = Theme()
 ) : PresentationWidget(
-    size = WidgetSize.max
+    size = WidgetSize.max,
+    theme = theme
 ) {
     override val contents: List<PresentationWidget>
         get() {
@@ -27,7 +28,7 @@ class TitleLayout(
                             x = 5F.positionRelative,
                             y = 30F.positionRelative
                         ),
-                        theme = _theme
+                        theme = theme
                     )
                 )
             )
@@ -41,7 +42,7 @@ class TitleLayout(
                                 x = 5F.positionRelative,
                                 y = 60F.positionRelative
                             ),
-                            theme = _theme
+                            theme = theme
                         )
                     )
                 )

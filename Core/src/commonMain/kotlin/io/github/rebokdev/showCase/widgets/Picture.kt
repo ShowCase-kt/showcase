@@ -9,14 +9,14 @@ import io.github.rebokdev.showCase.WidgetPosition
 import io.github.rebokdev.showCase.WidgetSize
 
 class Picture(
-    Size: WidgetSize = WidgetSize(),
-    Position: WidgetPosition = WidgetPosition(),
-    _theme: Theme = Theme(),
+    size: WidgetSize = WidgetSize(),
+    position: WidgetPosition = WidgetPosition(),
+    theme: Theme = Theme(),
     val image: Image,
     val style: PictureStyle? = null,
     val scalingEffect: PictureScalingEffect = PictureScalingEffect.Fill,
 
-    ): PresentationWidget(Size,Position,_theme) {
+    ): PresentationWidget(size,position,theme) {
     override val contents: List<PresentationWidget>? = null
 
     fun getPictureStyle(): PictureStyle {

@@ -4,23 +4,24 @@ import io.github.rebokdev.showCase.*
 
 class SlideNumber(
     private val number: Int,
-    private val _theme: Theme = Theme()
+    theme: Theme = Theme()
 ) : PresentationWidget(
     size = WidgetSize.max,
-    theme = _theme
+    theme = theme
 ) {
     override val contents: List<PresentationWidget>
         get() {
             return listOf(
                 Text(
-                    Size = size,
+                    size = size,
                     text = TextData(
                         verticalAlign = VerticalTextAlign.Bottom,
                         Paragraph(
                             horizontalAlign = HorizontalTextAlign.Left,
                             Run(
                                 text = number.plus(1).toString(),
-                                color = theme.slideNumberColor
+                                color = theme.slideNumberColor,
+                                fontSize = 15.0
                             )
                         )
                     )

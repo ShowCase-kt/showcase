@@ -7,10 +7,10 @@ import io.github.rebokdev.showCase.WidgetPosition
 import io.github.rebokdev.showCase.WidgetSize
 
 class Shape(
-    val _size: WidgetSize,
-    val _position: WidgetPosition,
+    size: WidgetSize,
+    position: WidgetPosition,
     val shapeType: ShapeType,
     val color: Color
-): PresentationWidget(_size,_position) {
+): PresentationWidget(size,position) {
     override val contents: List<PresentationWidget>? = null
 }
